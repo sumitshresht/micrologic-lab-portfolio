@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import Image from "next/image";
 import { PORTFOLIO_DATA } from "@/lib/data";
 import Link from "next/link";
+import { Download } from "lucide-react"; // <--- Import Download Icon
 
 export default function UnifiedHero() {
   const { scrollY } = useScroll();
@@ -36,8 +37,6 @@ export default function UnifiedHero() {
   const shapeRotate = useTransform(smoothScroll, [0, 2000], [0, 360]);
 
   return (
-    // FIX 1: Changed z-0 to z-50 to sit ON TOP of page content
-    // FIX 2: Added pointer-events-none so we don't block scrolling/clicking the page
     <div className="fixed inset-0 w-full h-full pointer-events-none z-50 overflow-hidden">
       
       {/* === LAYER 0: PERSISTENT 3D ELEMENTS === */}
@@ -67,7 +66,6 @@ export default function UnifiedHero() {
               A creative fusion of Systems Architecture and Motion Design. We build digital experiences that feel alive.
             </p>
             
-            {/* FIX 3: ADDED pointer-events-auto so this button catches clicks */}
             <Link href="/contact" className="inline-block pointer-events-auto relative z-50"> 
               <button className="px-10 py-5 bg-text-main text-white font-bold rounded-full text-xl shadow-clay-card hover:scale-105 active:scale-95 transition-all cursor-pointer">
                 Start a Project
@@ -84,39 +82,54 @@ export default function UnifiedHero() {
          <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent" />
       </motion.div>
 
-      {/* === LAYER 3: THE PERSISTENT AVATARS === */}
+      {/* === LAYER 3: THE PERSISTENT AVATARS (Click to Download Resume) === */}
+      
+      {/* DEV 1 (Sumit) */}
       <motion.div 
         style={{ left: leftCardLeft, top: cardTop, y: cardYOffset, rotate: leftCardRotate, scale: cardScale }}
-        // FIX 4: Kept pointer-events-auto for avatars
-        className="absolute z-20 hover:z-50 w-[300px] aspect-[3/4] origin-top-left transition-all duration-300 ease-out pointer-events-auto cursor-pointer"
+        className="absolute z-20 hover:z-50 w-[300px] aspect-[3/4] origin-top-left transition-all duration-300 ease-out pointer-events-auto cursor-pointer group" // Added 'group'
         whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
       >
-        <div className="relative w-full h-full bg-white rounded-[2rem] shadow-clay-card p-3 border border-white/50">
-           <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden bg-gray-50">
-             <Image src={PORTFOLIO_DATA.dev1.image} alt="Dev 1" fill className="object-cover" />
-             <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent text-white">
-                <p className="font-bold text-lg">{PORTFOLIO_DATA.dev1.name}</p>
-                <p className="text-xs opacity-80">{PORTFOLIO_DATA.dev1.role}</p>
+        <a href={PORTFOLIO_DATA.dev1.resume} download className="block w-full h-full"> {/* Wrapped in Anchor */}
+          <div className="relative w-full h-full bg-white rounded-[2rem] shadow-clay-card p-3 border border-white/50">
+             <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden bg-gray-50">
+               <Image src={PORTFOLIO_DATA.dev1.image} alt="Sumit" fill className="object-cover" />
+               <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent text-white">
+                  <p className="font-bold text-lg">{PORTFOLIO_DATA.dev1.name}</p>
+                  <p className="text-xs opacity-80">{PORTFOLIO_DATA.dev1.role}</p>
+                  
+                  {/* Download Hint on Hover */}
+                  <div className="flex items-center gap-2 mt-2 text-accent-yellow font-bold text-xs opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0 duration-300">
+                    <Download size={16} /> Download Resume
+                  </div>
+               </div>
              </div>
-           </div>
-        </div>
+          </div>
+        </a>
       </motion.div>
 
+      {/* DEV 2 (Koustav) */}
       <motion.div 
         style={{ right: rightCardRight, top: cardTop, y: cardYOffset, rotate: rightCardRotate, scale: cardScale }}
-        // FIX 4: Kept pointer-events-auto for avatars
-        className="absolute z-20 hover:z-50 w-[300px] aspect-[3/4] origin-top-right transition-all duration-300 ease-out pointer-events-auto cursor-pointer"
+        className="absolute z-20 hover:z-50 w-[300px] aspect-[3/4] origin-top-right transition-all duration-300 ease-out pointer-events-auto cursor-pointer group" // Added 'group'
         whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
       >
-        <div className="relative w-full h-full bg-white rounded-[2rem] shadow-clay-card p-3 border border-white/50">
-           <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden bg-gray-50">
-             <Image src={PORTFOLIO_DATA.dev2.image} alt="Dev 2" fill className="object-cover" />
-             <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent text-white">
-                <p className="font-bold text-lg">{PORTFOLIO_DATA.dev2.name}</p>
-                <p className="text-xs opacity-80">{PORTFOLIO_DATA.dev2.role}</p>
+        <a href={PORTFOLIO_DATA.dev2.resume} download className="block w-full h-full"> {/* Wrapped in Anchor */}
+          <div className="relative w-full h-full bg-white rounded-[2rem] shadow-clay-card p-3 border border-white/50">
+             <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden bg-gray-50">
+               <Image src={PORTFOLIO_DATA.dev2.image} alt="Koustav" fill className="object-cover" />
+               <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent text-white">
+                  <p className="font-bold text-lg">{PORTFOLIO_DATA.dev2.name}</p>
+                  <p className="text-xs opacity-80">{PORTFOLIO_DATA.dev2.role}</p>
+                  
+                   {/* Download Hint on Hover */}
+                  <div className="flex items-center gap-2 mt-2 text-accent-yellow font-bold text-xs opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0 duration-300">
+                    <Download size={16} /> Download Resume
+                  </div>
+               </div>
              </div>
-           </div>
-        </div>
+          </div>
+        </a>
       </motion.div>
 
     </div>

@@ -15,12 +15,14 @@ import {
   Activity,
   Terminal,
 } from "lucide-react";
+import { resume } from "react-dom/server";
 
 export const PORTFOLIO_DATA = {
   dev1: {
     name: "Sumit", // Based on context (Dev A)
     role: "Founder & Full-Stack Developer",
     image: "/sumit.png", // Using uploaded filename
+    resume: "/Sumit_Resume.pdf",
     color: "from-purple-500 to-indigo-500",
     align: "left",
   },
@@ -28,6 +30,7 @@ export const PORTFOLIO_DATA = {
     name: "Koustav", // Based on context (Dev B)
     role: "Co-Founder & System Architect",
     image: "/koustav.jpeg", // Using uploaded filename
+    resume: "/Koustav_Resume.pdf",
     color: "from-blue-500 to-cyan-500",
     align: "right",
   }
